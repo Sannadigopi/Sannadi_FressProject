@@ -2,6 +2,7 @@ package com.training.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -14,8 +15,16 @@ public class LoginPOM {
 	}
 	@FindBy(xpath ="//*[@id='responsive']/li[7]/a/i")
 	private WebElement LinkTextLogin;
+	
 	@FindBy(xpath ="//*[@id=\"post-133\"]/div/div/div/ul/li[2]/a")
 	private WebElement TagNameRegisterBtn;
+	
+	@FindBy(xpath = "//*[@id=\"post-133\"]/div/div/div/ul/li[1]/a")
+	private WebElement clickTagNameLoginBtn;
+	 
+	public void clickTagNameLoginBtn() {
+		this.clickTagNameLoginBtn.click();
+	}
 	
 	@FindBy(id="user_login")
 	private WebElement userName; 
@@ -29,7 +38,15 @@ public class LoginPOM {
 	@FindBy(xpath = " //li[@id='wp-admin-bar-my-account']")
 	private WebElement HyperLinkAdmin;
 	
-	@FindBy(id="last_name")
+	@FindBy(xpath = "//*[@id=\"wp-admin-bar-my-account\"]/a")
+	private WebElement MouseOverClick;
+	
+	public void MouseHoverClick(String howdy) {
+		Actions act = new Actions(driver);
+		act.moveToElement(MouseOverClick).perform();
+	}
+	
+	@FindBy(id="last-name")
 	private WebElement LastName;
 	
 	@FindBy(id="phone")
@@ -114,4 +131,5 @@ public class LoginPOM {
 	public void clickLogOutBtn() {
 		this.LogOutBtn.click();
 	}
+	
 }

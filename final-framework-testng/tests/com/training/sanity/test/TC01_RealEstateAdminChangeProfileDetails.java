@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -37,10 +40,11 @@ public class TC01_RealEstateAdminChangeProfileDetails {
 			loginPOM = new LoginPOM(driver); 
 			baseUrl = properties.getProperty("baseURL");
 			screenShot = new ScreenShot(driver); 
-			//genericmeth = new GenericMethods(driver);
+			genericmeth = new GenericMethods(driver);
 			// open the browser 
 			driver.get(baseUrl);
-			//genericmeth.assertURL("baseUrl");
+			genericmeth.assertURL("http://realestatem1.upskills.in/");
+			System.out.println("Assertion is passed and match the base URL with runtime URL");
 		}
 		
 		@AfterMethod
@@ -56,19 +60,25 @@ public class TC01_RealEstateAdminChangeProfileDetails {
 			loginPOM.clickLoginBtn();
 			Thread.sleep(5000L);
 			screenShot.captureScreenShot("validLoginTest");
-			/*genericmeth.assertText("admin","//*[@id=\"wp-admin-bar-user-info\"]/a/span","xpath", "Admin text is Present");
+			Thread.sleep(10000L);
+			loginPOM.MouseHoverClick("howdy");
 			Thread.sleep(5000L);
+			genericmeth.assertText("admin","//*[@id=\"wp-admin-bar-user-info\"]/a/span","xpath", "Admin text is Not Present");
+			System.out.println("Assertion pass for the text admin");			
 			genericmeth.assertText("Edit My Profile","//*[@id=\"wp-admin-bar-edit-profile\"]/a","xpath", "Edit My Profile text is Present");
+			System.out.println("Assertion pass for the text Edit My Profile");			
+			genericmeth.assertText("Log Out","//*[@id=\"wp-admin-bar-logout\"]/a","xpath", "Log Out text is Present");
 			Thread.sleep(5000L);
-			genericmeth.assertText("Log Out","//*[@id=\"wp-admin-bar-logout\"]/a","xpath", "Log Out text is Present");*/
-		
+			screenShot.captureScreenShot("Howdy,admin");
+			System.out.println("Assertion pass for the text Log Out");
 			loginPOM.clickHyperLinkAdmin();
 			loginPOM.sendLastName("reva");
 			loginPOM.sendPhone("9876543210");
 			loginPOM.clickSubmitBtn();
 			Thread.sleep(5000L);
-			//genericmeth.assertText("Profile updated.","//*[@id=\"message\"]/p/strong","xpath", "Profile updated.text is Present");
+			genericmeth.assertText("Profile updated.","//*[@id=\"message\"]/p/strong","xpath", "Profile updated.text is Present");
 			screenShot.captureScreenShot("UpdatedMyProfileTest");
+			System.out.println("Assertion is passed and validated message as 'Profile updated.'");
 			
 		}
 

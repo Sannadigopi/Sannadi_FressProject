@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 /**
@@ -76,7 +77,18 @@ public class GenericMethods {
 		System.out.println("Runtime URL is " +actualURL);
 		Assert.assertTrue(actualURL.equals(expectedURL),"Assertion failled as the expected" );
 	}
+		
+	public void MouseHover(WebElement Locator, WebDriver driver){
 	
+	Actions act = new Actions(driver);
+	act.moveToElement(Locator).perform();
+	//act.moveToElement(Locator2).perform();
+	
+	}
+	
+	public void SendValues(WebElement Locator, String value) {
+		Locator.sendKeys(value);
+	}
 	public void assertText(String expectedText, String locator, String type, String msg) {
 		type = type.toLowerCase();
 		

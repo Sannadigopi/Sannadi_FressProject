@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.training.generics.GenericMethods;
 import com.training.generics.ScreenShot;
 import com.training.pom.LoginPOM;
 import com.training.utility.DriverFactory;
@@ -21,6 +22,8 @@ public class TC03_RealEstateAdminLogout {
 	private LoginPOM loginPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
+	private GenericMethods genericmeth;
+	
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException {
@@ -34,9 +37,11 @@ public class TC03_RealEstateAdminLogout {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		loginPOM = new LoginPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
-		screenShot = new ScreenShot(driver); 
+		genericmeth = new GenericMethods(driver);
 		// open the browser 
 		driver.get(baseUrl);
+		genericmeth.assertURL("http://realestatem1.upskills.in/");
+		System.out.println("Assertion is passed and match the base URL with runtime URL");
 	}
 	
 	@AfterMethod
@@ -45,17 +50,23 @@ public class TC03_RealEstateAdminLogout {
 		driver.quit();
 	}
 	@Test
-	public void validLoginTest() {
+	public void validLogOutTest() throws InterruptedException {
 		loginPOM.clickLinkTextLogin();
-		//loginPOM.clickTagNameRegisterBtn();
-		//loginPOM.sendEmail("revasharma@gmail.com");
-		//loginPOM.sendFirstName("reva");
-		//loginPOM.sendLastName("sharma");
-		//loginPOM.clickRegisterBtn();
-		loginPOM.sendUserName("revasharma@gmail.com");
+		loginPOM.clickTagNameRegisterBtn();
+		loginPOM.sendEmail("revasharma@gmail1.com");
+		loginPOM.sendFirstName("Sannadi");
+		loginPOM.sendLastName("Gopi");
+		loginPOM.clickRegisterBtn();
+		Thread.sleep(5000L);
+		genericmeth.assertText("You have successfully registered to Real Estate. We have emailed your password to the email address you entered.", "//*[@id=\"post-133\"]/div/div/div/div[1]/p", "xpath", "Message is not Present");
+		System.out.println("Assertion is Passed"+"--->"+ "You have successfully registered to Real Estate. We have emailed your password to the email address you entered.");
+		loginPOM.clickTagNameLoginBtn();
+		loginPOM.sendUserName("revasharma@gmail1.com");
 		loginPOM.sendPassword("reva321");
 		loginPOM.clickLoginBtn(); 
-		screenShot.captureScreenShot();
+		screenShot.captureScreenShot("Registered User");
+		loginPOM.MouseHoverClick("howdy");
+		Thread.sleep(5000L);
 		loginPOM.clickLogOutBtn();
 }
 }

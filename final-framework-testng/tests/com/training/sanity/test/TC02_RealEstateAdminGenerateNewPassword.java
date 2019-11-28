@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.training.generics.GenericMethods;
 import com.training.generics.ScreenShot;
 import com.training.pom.LoginPOM;
 import com.training.utility.DriverFactory;
@@ -21,6 +22,7 @@ public class TC02_RealEstateAdminGenerateNewPassword {
 	private LoginPOM loginPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
+	private GenericMethods genericmeth;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException {
@@ -35,8 +37,11 @@ public class TC02_RealEstateAdminGenerateNewPassword {
 		loginPOM = new LoginPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
+		genericmeth = new GenericMethods(driver);
 		// open the browser 
 		driver.get(baseUrl);
+		genericmeth.assertURL("http://realestatem1.upskills.in/");
+		System.out.println("Assertion is passed and match the base URL with runtime URL");
 	}
 	
 	@AfterMethod
@@ -50,13 +55,15 @@ public class TC02_RealEstateAdminGenerateNewPassword {
 		loginPOM.sendUserName("admin");
 		loginPOM.sendPassword("admin@123");
 		loginPOM.clickLoginBtn(); 
-		screenShot.captureScreenShot();
+		screenShot.captureScreenShot("Login successful and Validated");
 		loginPOM.clickHyperLinkAdmin();
 		loginPOM.clickChangePasswordBtn();
-		loginPOM.sendNewPassword("reva321");
+		Thread.sleep(5000L);
+		loginPOM.sendNewPassword("Gopitest@2019");
 		loginPOM.clickSubmitBtn();
 		Thread.sleep(5000L);
-		//genericmeth.assertText("Profile updated.","//*[@id=\"message\"]/p/strong","xpath", "Profile updated.text is Present");
-		screenShot.captureScreenShot("NewPasswordUpdated");
+		genericmeth.assertText("Profile updated.","//*[@id=\"message\"]/p/strong","xpath", "Profile updated.text is Not Present");
+		System.out.println("Assertion is passed and message validated as Profile updated");
+		screenShot.captureScreenShot("NewPassword Reset and Updated Successfully");
 }
 }
