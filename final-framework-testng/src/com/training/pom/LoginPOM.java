@@ -9,7 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPOM {
 	private WebDriver driver; 
@@ -297,4 +299,126 @@ public class LoginPOM {
 	public void ClickCheckBoxRegion() {
 		this.CheckBoxRegion.click();
 	}
+	
+	@FindBy(xpath = "//li[@id='menu-item-354']//a[contains(text(),'New Launch')] ")
+	private WebElement NewLaunch;
+	
+	public void MouseOverNewLaunch(String Linktext) {
+		Actions act1 = new Actions(driver);
+		act1.moveToElement(NewLaunch).perform();
+		}
+	@FindBy(xpath ="//div[@id='wpmm-megamenu']//div[@class='wpmm-post post-667']//img[@class='attachment-wpmm_thumb size-wpmm_thumb wp-post-image'] ")
+	private WebElement SubMegamenu;
+	
+	public void ClickLineLink() {
+		Actions act2 = new Actions(driver);
+		act2.moveToElement(SubMegamenu).click();
+		act2.build().perform();
+		}
+	@FindBy(xpath = "//input[contains(@name,'your-name')]")
+	private WebElement Name;
+	
+	public void SendYourName(String YourName) {
+		this.Name.clear();
+		this.Name.sendKeys(YourName);
+	}
+	public void scrollToLoginLink() {
+	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", LinkTextLogin);
+	}
+	@FindBy(xpath = "//input[contains(@name,'your-email')]")
+	private WebElement Email;
+	
+	public void SendYourEmail(String YourEmail) {
+		this.Email.clear();
+		this.Email.sendKeys(YourEmail);
+	}
+		public void clickLinkLogin() {
+			WebElement LoginLInk = driver.findElement(By.xpath("//*[@id='responsive']/li[7]/a/i"));
+			JavascriptExecutor executor = (JavascriptExecutor)driver;
+			executor.executeScript("arguments[0].click();", LoginLInk);
+	}
+	@FindBy(xpath = "//input[contains(@name,'your-subject')]")
+	private WebElement Subject;
+	
+	public void SendYourSubject(String Subject) {
+		this.Subject.clear();
+		this.Subject.sendKeys(Subject);
+	}
+	@FindBy(xpath = "//textarea[contains(@name,'your-message')]")
+	private WebElement TextAreaMessage;
+	
+	public void SendTextAreaMessage(String Message) {
+		this.TextAreaMessage.clear();
+		this.TextAreaMessage.sendKeys(Message);
+	}
+	@FindBy(xpath = "//input[@class='wpcf7-form-control wpcf7-submit']")
+	private WebElement SendBtn;
+	public void ClickSendBtn() {
+		this.SendBtn.click();
+	}
+	@FindBy(xpath = "//div[contains(text(),'Users')]")
+	private WebElement UsersLInk;
+	public void ClickUsersLink() {
+	this.UsersLInk.click();
+	}
+	@FindBy(xpath = "//input[contains(@id,'user-search-input')]")
+	private WebElement UserSerarchTextBox;
+		public void SendUserSerarchTextBox(String value) {
+			this.UserSerarchTextBox.clear();
+			this.UserSerarchTextBox.sendKeys(value);
+	
+	}
+		@FindBy(xpath = "//input[contains(@id,'search-submit')]")
+		private WebElement SearchBtn;
+		public void ClickSearchBtn() {
+			this.SearchBtn.click();
+	}
+		
+		//Complex TC02
+		
+		@FindBy(xpath = "//a[@class='wp-first-item current']")
+		private WebElement AllUsersLink;
+		public void ClickAllUsersLInk() {
+			this.AllUsersLink.click();
+		}
+		@FindBy(xpath = "//input[@id='user_347']")
+		private WebElement UserCheckBox1;
+		public void ClickUserCheckBox1() {
+			this.UserCheckBox1.click();
+		}
+		@FindBy(xpath = "//input[@id='user_214']")
+		private WebElement UsrCheckBox2;
+		public void ClickUserCheckBox2() {
+			this.UsrCheckBox2.click();
+		}
+		@FindBy(xpath = "//input[@id='user_215']")
+		private WebElement UserCheckBox3;
+		public void ClickUserCheckBox3() {
+			this.UserCheckBox3.click();
+		}
+		@FindBy(xpath = "//select[@id='new_role']")
+		private WebElement ChangeRoleDropdownBox;
+		public void ClickChangeRoleDropdownBox() {
+			this.ChangeRoleDropdownBox.click();
+		}
+		public void SelectChangeRoleDropdownOPtion(String Option) {
+			Select ChangeRoleOption = new Select(ChangeRoleDropdownBox);
+			ChangeRoleOption.selectByVisibleText(Option);
+						
+		}
+		@FindBy (xpath = "//input[@id='changeit']")
+		private WebElement ChangeBtn;
+		public void ClickChangeBtn() {
+			this.ChangeBtn.click();
+		}
+		
+		public void ScrollToDropdownSelectOption(String Option) {
+		WebElement dropdown = driver.findElement(By.xpath("//select[@id='new_role']"));
+		Select dropOption = new Select(dropdown);
+		dropOption.selectByVisibleText(Option);
+		JavascriptExecutor executor = (JavascriptExecutor)driver;
+		executor.executeScript("arguments[0].Select", Option);
+		}
 }
+		
+
